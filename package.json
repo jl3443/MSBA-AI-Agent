@@ -1,0 +1,22 @@
+{
+  "name": "ucla-msba-ai-assistant",
+  "version": "1.0.0",
+  "description": "AI-powered Chrome extension for UCLA Anderson MSBA program",
+  "main": "msba-agent.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "chrome-extension",
+    "ai",
+    "msba",
+    "ucla",
+    "langchain",
+    "react-framework"
+  ],
+  "author": "UCLA Anderson MSBA Team",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
+

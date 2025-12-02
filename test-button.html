@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Test MSBA Button</title>
+    <style>
+        body {
+            padding: 50px;
+            font-family: Arial, sans-serif;
+        }
+        .instructions {
+            background: #FFF9E6;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #FFD100;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #003DA5;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎓 MSBA Agent Button Test</h1>
+    
+    <div class="instructions">
+        <h3>测试步骤：</h3>
+        <ol>
+            <li>打开浏览器控制台（F12）</li>
+            <li>点击下面的按钮创建浮动按钮</li>
+            <li>查看右下角是否出现蓝色 🎓 按钮</li>
+            <li>点击按钮测试是否能打开侧边栏</li>
+        </ol>
+    </div>
+    
+    <button onclick="createButton()">创建浮动按钮</button>
+    <button onclick="checkButton()">检查按钮是否存在</button>
+    <button onclick="initAgent()">初始化 Agent</button>
+    
+    <script>
+        function createButton() {
+            // Remove existing button
+            const existing = document.getElementById('msba-toggle-btn');
+            if (existing) {
+                existing.remove();
+            }
+            
+            const btn = document.createElement('button');
+            btn.id = 'msba-toggle-btn';
+            btn.innerHTML = '🎓';
+            btn.title = 'Toggle MSBA AI Assistant';
+            btn.style.cssText = `
+                position: fixed !important;
+                right: 20px !important;
+                bottom: 20px !important;
+                width: 60px !important;
+                height: 60px !important;
+                background: #003DA5 !important;
+                color: white !important;
+                border: none !important;
+                border-radius: 50% !important;
+                font-size: 24px !important;
+                cursor: pointer !important;
+                box-shadow: 0 4px 12px rgba(0, 61, 165, 0.3) !important;
+                z-index: 999999 !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            `;
+            
+            btn.onclick = () => {
+                alert('按钮被点击了！如果 Agent 已初始化，应该会打开侧边栏。');
+                if (window.msbaAgent) {
+                    window.msbaAgent.toggleSidebar();
+                }
+            };
+            
+            document.body.appendChild(btn);
+            console.log('✅ 按钮已创建！');
+            alert('按钮已创建！查看右下角。');
+        }
+        
+        function checkButton() {
+            const btn = document.getElementById('msba-toggle-btn');
+            if (btn) {
+                const rect = btn.getBoundingClientRect();
+                console.log('按钮信息:', {
+                    exists: true,
+                    position: { right: window.innerWidth - rect.right, bottom: window.innerHeight - rect.bottom },
+                    size: { width: rect.width, height: rect.height },
+                    visible: rect.width > 0 && rect.height > 0,
+                    zIndex: window.getComputedStyle(btn).zIndex
+                });
+                alert('按钮存在！位置: 右下角 ' + (window.innerWidth - rect.right) + 'px, ' + (window.innerHeight - rect.bottom) + 'px');
+            } else {
+                console.log('按钮不存在');
+                alert('按钮不存在！请先点击"创建浮动按钮"');
+            }
+        }
+        
+        function initAgent() {
+            if (typeof MSBAAgent !== 'undefined') {
+                window.msbaAgent = new MSBAAgent();
+                alert('Agent 已初始化！');
+            } else {
+                alert('MSBAAgent 类未定义。请确保扩展已加载。');
+            }
+        }
+    </script>
+</body>
+</html>
+

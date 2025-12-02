@@ -1,0 +1,55 @@
+{
+  "manifest_version": 3,
+  "name": "UCLA MSBA AI Assistant",
+  "version": "1.0.0",
+  "description": "AI-powered assistant for UCLA Anderson MSBA program, providing intelligent answers about admissions, prerequisites, fees, and program details",
+  
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self' https://api.deepseek.com https://api.openai.com;"
+  },
+  
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ],
+  
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": [
+        "msba-knowledge-base.js",
+        "msba-langchain-adapter.js",
+        "msba-react-components.js",
+        "msba-agent.js"
+      ],
+      "run_at": "document_end",
+      "all_frames": false
+    }
+  ],
+  
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "UCLA MSBA AI Assistant"
+  },
+  
+  "background": {
+    "service_worker": "background.js"
+  },
+  
+  "commands": {
+    "toggle-msba-assistant": {
+      "suggested_key": {
+        "default": "Ctrl+K",
+        "mac": "Command+K"
+      },
+      "description": "Toggle MSBA AI Assistant"
+    }
+  }
+}
+
