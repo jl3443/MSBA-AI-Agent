@@ -47,7 +47,7 @@ The UCLA MSBA AI Assistant is an intelligent Chrome extension that provides accu
 ### System Architecture Diagram
 
 ```mermaid
-graph TB
+graph LR
     A[User Query] --> B[MSBA Agent]
     B --> C[LangChain Adapter]
     C --> D[Router]
@@ -69,8 +69,8 @@ graph TB
     O --> P[Enhance]
     P --> N
     
-    C --> Q[Memory]
-    B --> R[Storage]
+    C -.-> Q[Memory]
+    B -.-> R[Storage]
     
     N --> S[UI Sidebar]
 
