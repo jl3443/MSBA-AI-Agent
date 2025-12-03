@@ -49,50 +49,25 @@ The UCLA MSBA AI Assistant is an intelligent Chrome extension that provides accu
 ```mermaid
 graph LR
     A[User Query] --> B[MSBA Agent]
-    B --> C[LangChain Adapter]
-    C --> D[Router]
-    D --> E{Type?}
-    E -->|MSBA| F[ReAct]
-    E -->|General| G[Conversation]
+    B --> C[Router]
+    C --> D{Type?}
+    D -->|MSBA| E[ReAct Loop]
+    D -->|General| F[Conversation]
     
-    F --> H[Think]
-    H --> I[Act]
-    I --> J[Tools]
-    J --> K[Knowledge Base]
-    K --> L[Observe]
-    L --> M{More?}
-    M -->|Yes| H
-    M -->|No| N[Answer]
-    
-    F --> O[LLM API]
-    G --> O
-    O --> P[Enhance]
-    P --> N
-    
-    C -.-> Q[Memory]
-    B -.-> R[Storage]
-    
-    N --> S[UI Sidebar]
+    E --> G[Knowledge Base]
+    G --> H[LLM API]
+    F --> H
+    H --> I[UI Sidebar]
 
     style A fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
     style B fill:#0055CC,stroke:#FFD100,stroke-width:3px,color:#fff
-    style C fill:#4A90E2,stroke:#003DA5,stroke-width:2px,color:#fff
-    style D fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
+    style C fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
+    style D fill:#FFD100,stroke:#0055CC,stroke-width:2px
     style E fill:#FFD100,stroke:#0055CC,stroke-width:2px
-    style F fill:#FFD100,stroke:#0055CC,stroke-width:2px
+    style F fill:#FFF9E6,stroke:#FFD100,stroke-width:2px
     style G fill:#FFF9E6,stroke:#FFD100,stroke-width:2px
-    style H fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
-    style I fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
-    style J fill:#FFD100,stroke:#0055CC,stroke-width:2px
-    style K fill:#FFF9E6,stroke:#FFD100,stroke-width:2px
-    style L fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
-    style M fill:#FFD100,stroke:#0055CC,stroke-width:2px
-    style N fill:#0055CC,stroke:#FFD100,stroke-width:2px,color:#fff
-    style O fill:#0055CC,stroke:#FFD100,stroke-width:2px,color:#fff
-    style P fill:#FFD100,stroke:#0055CC,stroke-width:2px
-    style Q fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
-    style R fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
-    style S fill:#0055CC,stroke:#FFD100,stroke-width:2px,color:#fff
+    style H fill:#0055CC,stroke:#FFD100,stroke-width:2px,color:#fff
+    style I fill:#0055CC,stroke:#FFD100,stroke-width:2px,color:#fff
 ```
 
 ### Core Components
