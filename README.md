@@ -48,91 +48,51 @@ The UCLA MSBA AI Assistant is an intelligent Chrome extension that provides accu
 
 ```mermaid
 graph TB
-    subgraph "Browser Extension Layer"
-        A[Chrome Extension] --> B[MSBA Agent<br/>Main Entry Point]
-        B --> C[Settings Manager<br/>Chrome Storage Sync]
-        B --> D[UI Sidebar<br/>React Components]
-        B --> E[Event Listeners<br/>Keyboard Shortcuts]
+    subgraph "User Interface"
+        A[User Query] --> B[MSBA Agent<br/>Main Entry Point]
+        B --> C[UI Sidebar]
     end
 
-    subgraph "Core Agent Layer"
-        B --> F[MSBA LangChain Adapter]
-        F --> G[Memory System<br/>Vector DB + Relational Storage]
-        F --> H[Tool Registry<br/>8 MSBA Tools]
-        F --> I[Chain Registry<br/>ReAct + Router + Conversation]
+    subgraph "Core Processing"
+        B --> D[MSBA LangChain Adapter]
+        D --> E[Router Chain<br/>Intent Detection]
+        E --> F{Query Type?}
+        F -->|MSBA Query| G[ReAct Chain]
+        F -->|General Chat| H[Conversation Chain]
     end
 
-    subgraph "Knowledge Base Layer"
-        G --> J[MSBA Knowledge Base<br/>Structured Data]
-        J --> K[Prerequisites]
-        J --> L[Fees & Financing]
-        J --> M[Admissions]
-        J --> N[Program Info]
-        J --> O[Career Outcomes]
-        J --> P[FAQs]
-        J --> Q[Events]
-        J --> R[Videos]
+    subgraph "ReAct Loop"
+        G --> I[Think]
+        I --> J[Act]
+        J --> K[Tool Execution]
+        K --> L[8 MSBA Tools<br/>prerequisites, fees, admissions, etc.]
+        L --> M[Knowledge Base<br/>8 Categories]
+        M --> N[Observe]
+        N --> O{Need More Info?}
+        O -->|Yes| I
+        O -->|No| P[Final Answer]
     end
 
-    subgraph "ReAct Framework Layer"
-        I --> S[Router Chain<br/>Intent Detection]
-        S --> T{Query Type?}
-        T -->|MSBA Query| U[ReAct Chain<br/>Reasoning + Acting]
-        T -->|General Chat| V[Conversation Chain<br/>Friendly Dialogue]
-        
-        U --> W[Think Step]
-        W --> X[Action Step]
-        X --> Y[Tool Execution]
-        Y --> Z[Observation]
-        Z --> AA{Need More Info?}
-        AA -->|Yes| W
-        AA -->|No| AB[Final Answer]
+    subgraph "LLM & Enhancement"
+        G --> Q[DeepSeek/OpenAI API]
+        H --> Q
+        Q --> R[Response Generation]
+        R --> S[Link & Video Enhancement]
+        S --> P
     end
 
-    subgraph "Tool Execution Layer"
-        H --> AC[prerequisites_lookup]
-        H --> AD[fees_lookup]
-        H --> AE[admissions_lookup]
-        H --> AF[program_lookup]
-        H --> AG[career_lookup]
-        H --> AH[faq_search]
-        H --> AI[events_lookup]
-        H --> AJ[videos_lookup]
-        
-        Y --> AC
-        Y --> AD
-        Y --> AE
-        Y --> AF
-        Y --> AG
-        Y --> AH
-        Y --> AI
-        Y --> AJ
+    subgraph "Storage"
+        D --> T[Memory System<br/>Chat History]
+        B --> U[Chrome Storage<br/>Settings & History]
     end
 
-    subgraph "LLM API Layer"
-        U --> AK[DeepSeek API<br/>or OpenAI API]
-        V --> AK
-        AK --> AL[Response Generation]
-        AL --> AB
-    end
-
-    subgraph "Response Enhancement Layer"
-        AB --> AM[Link Enhancement<br/>Auto-add URLs]
-        AM --> AN[Video Embedding<br/>YouTube Integration]
-        AN --> AO[Message Formatting<br/>Markdown + Links]
-        AO --> D
-    end
-
-    subgraph "Storage Layer"
-        G --> AP[Chrome Storage Local<br/>Chat History]
-        C --> AQ[Chrome Storage Sync<br/>API Keys & Settings]
-    end
+    P --> C
 
     style B fill:#0055CC,stroke:#FFD100,stroke-width:3px,color:#fff
-    style F fill:#4A90E2,stroke:#003DA5,stroke-width:2px,color:#fff
-    style U fill:#FFD100,stroke:#0055CC,stroke-width:2px
-    style J fill:#FFF9E6,stroke:#FFD100,stroke-width:2px
-    style AK fill:#1A1A1A,stroke:#0055CC,stroke-width:2px,color:#fff
+    style D fill:#4A90E2,stroke:#003DA5,stroke-width:2px,color:#fff
+    style G fill:#FFD100,stroke:#0055CC,stroke-width:2px
+    style M fill:#FFF9E6,stroke:#FFD100,stroke-width:2px
+    style Q fill:#1A1A1A,stroke:#0055CC,stroke-width:2px,color:#fff
 ```
 
 ### Core Components
@@ -151,14 +111,12 @@ graph TB
 
 ### Architecture Layers
 
-1. **Browser Extension Layer**: Chrome extension, settings, UI sidebar, event listeners
-2. **Core Agent Layer**: LangChain adapter, memory system, tool registry, chain registry
-3. **Knowledge Base Layer**: 8 categories of structured MSBA knowledge
-4. **ReAct Framework Layer**: Router, ReAct chain (Think-Act-Observe loop), Conversation chain
-5. **Tool Execution Layer**: 8 specialized tools for knowledge lookup
-6. **LLM API Layer**: DeepSeek or OpenAI API integration
-7. **Response Enhancement Layer**: Link addition, video embedding, markdown formatting
-8. **Storage Layer**: Chrome Storage (Local for history, Sync for settings)
+1. **User Interface**: Chrome extension sidebar with React components
+2. **Core Processing**: LangChain adapter with router for intent detection
+3. **ReAct Loop**: Think → Act → Tool Execution → Observe (iterative reasoning)
+4. **Knowledge Base**: 8 categories (Prerequisites, Fees, Admissions, Program, Career, FAQ, Events, Videos)
+5. **LLM & Enhancement**: DeepSeek/OpenAI API with automatic link and video embedding
+6. **Storage**: Chrome Storage for chat history and settings
 
 For detailed architecture documentation, see [ARCHITECTURE.md](./ARCHITECTURE.md).
 
