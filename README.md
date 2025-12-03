@@ -48,51 +48,51 @@ The UCLA MSBA AI Assistant is an intelligent Chrome extension that provides accu
 
 ```mermaid
 graph TB
-    subgraph "User Interface"
-        A[User Query] --> B[MSBA Agent<br/>Main Entry Point]
-        B --> C[UI Sidebar]
-    end
+    A[User Query] --> B[MSBA Agent]
+    B --> C[LangChain Adapter]
+    C --> D[Router]
+    D --> E{Type?}
+    E -->|MSBA| F[ReAct]
+    E -->|General| G[Conversation]
+    
+    F --> H[Think]
+    H --> I[Act]
+    I --> J[Tools]
+    J --> K[Knowledge Base]
+    K --> L[Observe]
+    L --> M{More?}
+    M -->|Yes| H
+    M -->|No| N[Answer]
+    
+    F --> O[LLM API]
+    G --> O
+    O --> P[Enhance]
+    P --> N
+    
+    C --> Q[Memory]
+    B --> R[Storage]
+    
+    N --> S[UI Sidebar]
 
-    subgraph "Core Processing"
-        B --> D[MSBA LangChain Adapter]
-        D --> E[Router Chain<br/>Intent Detection]
-        E --> F{Query Type?}
-        F -->|MSBA Query| G[ReAct Chain]
-        F -->|General Chat| H[Conversation Chain]
-    end
-
-    subgraph "ReAct Loop"
-        G --> I[Think]
-        I --> J[Act]
-        J --> K[Tool Execution]
-        K --> L[8 MSBA Tools<br/>prerequisites, fees, admissions, etc.]
-        L --> M[Knowledge Base<br/>8 Categories]
-        M --> N[Observe]
-        N --> O{Need More Info?}
-        O -->|Yes| I
-        O -->|No| P[Final Answer]
-    end
-
-    subgraph "LLM & Enhancement"
-        G --> Q[DeepSeek/OpenAI API]
-        H --> Q
-        Q --> R[Response Generation]
-        R --> S[Link & Video Enhancement]
-        S --> P
-    end
-
-    subgraph "Storage"
-        D --> T[Memory System<br/>Chat History]
-        B --> U[Chrome Storage<br/>Settings & History]
-    end
-
-    P --> C
-
+    style A fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
     style B fill:#0055CC,stroke:#FFD100,stroke-width:3px,color:#fff
-    style D fill:#4A90E2,stroke:#003DA5,stroke-width:2px,color:#fff
-    style G fill:#FFD100,stroke:#0055CC,stroke-width:2px
-    style M fill:#FFF9E6,stroke:#FFD100,stroke-width:2px
-    style Q fill:#1A1A1A,stroke:#0055CC,stroke-width:2px,color:#fff
+    style C fill:#4A90E2,stroke:#003DA5,stroke-width:2px,color:#fff
+    style D fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
+    style E fill:#FFD100,stroke:#0055CC,stroke-width:2px
+    style F fill:#FFD100,stroke:#0055CC,stroke-width:2px
+    style G fill:#FFF9E6,stroke:#FFD100,stroke-width:2px
+    style H fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
+    style I fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
+    style J fill:#FFD100,stroke:#0055CC,stroke-width:2px
+    style K fill:#FFF9E6,stroke:#FFD100,stroke-width:2px
+    style L fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
+    style M fill:#FFD100,stroke:#0055CC,stroke-width:2px
+    style N fill:#0055CC,stroke:#FFD100,stroke-width:2px,color:#fff
+    style O fill:#0055CC,stroke:#FFD100,stroke-width:2px,color:#fff
+    style P fill:#FFD100,stroke:#0055CC,stroke-width:2px
+    style Q fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
+    style R fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
+    style S fill:#0055CC,stroke:#FFD100,stroke-width:2px,color:#fff
 ```
 
 ### Core Components
