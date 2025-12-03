@@ -49,25 +49,38 @@ The UCLA MSBA AI Assistant is an intelligent Chrome extension that provides accu
 ```mermaid
 graph LR
     A[User Query] --> B[MSBA Agent]
-    B --> C[Router]
+    B --> C[LangChain Adapter]
     C --> D{Type?}
-    D -->|MSBA| E[ReAct Loop]
+    D -->|MSBA| E[ReAct]
     D -->|General| F[Conversation]
     
-    E --> G[Knowledge Base]
-    G --> H[LLM API]
-    F --> H
-    H --> I[UI Sidebar]
+    E --> G[Think]
+    G --> H[Act]
+    H --> I[Knowledge Base]
+    I --> J[Observe]
+    J --> K{More?}
+    K -->|Yes| G
+    K -->|No| L[Answer]
+    
+    E --> M[LLM API]
+    F --> M
+    M --> L
+    L --> N[UI Sidebar]
 
     style A fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
     style B fill:#0055CC,stroke:#FFD100,stroke-width:3px,color:#fff
-    style C fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
+    style C fill:#4A90E2,stroke:#003DA5,stroke-width:2px,color:#fff
     style D fill:#FFD100,stroke:#0055CC,stroke-width:2px
     style E fill:#FFD100,stroke:#0055CC,stroke-width:2px
     style F fill:#FFF9E6,stroke:#FFD100,stroke-width:2px
-    style G fill:#FFF9E6,stroke:#FFD100,stroke-width:2px
-    style H fill:#0055CC,stroke:#FFD100,stroke-width:2px,color:#fff
-    style I fill:#0055CC,stroke:#FFD100,stroke-width:2px,color:#fff
+    style G fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
+    style H fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
+    style I fill:#FFF9E6,stroke:#FFD100,stroke-width:2px
+    style J fill:#4A90E2,stroke:#0055CC,stroke-width:2px,color:#fff
+    style K fill:#FFD100,stroke:#0055CC,stroke-width:2px
+    style L fill:#0055CC,stroke:#FFD100,stroke-width:2px,color:#fff
+    style M fill:#0055CC,stroke:#FFD100,stroke-width:2px,color:#fff
+    style N fill:#0055CC,stroke:#FFD100,stroke-width:2px,color:#fff
 ```
 
 ### Core Components
